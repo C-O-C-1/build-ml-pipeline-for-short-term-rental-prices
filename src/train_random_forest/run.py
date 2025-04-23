@@ -99,8 +99,8 @@ def go(args):
     # HINT: use mlflow.sklearn.save_model
     # YOUR CODE HERE
     ######################################
-        train_rf_dir = "./src/train_random_forest"
-        export_path = os.path.join(train_rf_dir, "random_forest_dir")
+        export_path = "random_forest_dir"
+        #export_path = os.path.join(train_rf_dir, "random_forest_dir")
         mlflow.sklearn.save_model(            
                 sk_pipe,
                 export_path,
