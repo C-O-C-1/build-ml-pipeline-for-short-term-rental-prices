@@ -51,7 +51,6 @@ def go(args):
     # Fix the random seed for the Random Forest, so we get reproducible results
     rf_config['random_state'] = args.random_seed
 
-    ######################################
     # Use run.use_artifact(...).file() to get the train and validation artifact (args.trainval_artifact)
     # and save the returned path in train_local_pat
     trainval_local_path = run.use_artifact(args.trainval_artifact).file()
@@ -99,13 +98,13 @@ def go(args):
     # HINT: use mlflow.sklearn.save_model
     # YOUR CODE HERE
     ######################################
-        export_path = "random_forest_dir"
-        #export_path = os.path.join(train_rf_dir, "random_forest_dir")
-        mlflow.sklearn.save_model(            
-                sk_pipe,
-                export_path,
-                serialization_format=mlflow.sklearn.SERIALIZATION_FORMAT_CLOUDPICKLE
-                )
+    export_path = "random_forest_dir"
+    #export_path = os.path.join(train_rf_dir, "random_forest_dir")
+    mlflow.sklearn.save_model(            
+            sk_pipe,
+            export_path,
+            serialization_format=mlflow.sklearn.SERIALIZATION_FORMAT_CLOUDPICKLE
+            )
 
 
         ######################################
@@ -117,15 +116,15 @@ def go(args):
         # YOUR CODE HERE
         ######################################
 
-        artifact = wandb.Artifact(
-                args.output_artifact,
-                type="model_export",
-                description="Exporting RF pipeline",
+    artifact = wandb.Artifact(
+            args.output_artifact,
+            type="model_export",
+            description="Exporting RF pipeline",
             )
-        artifact.add_dir(export_path)
+    artifact.add_dir(export_path)
 
-        run.log_artifact(artifact)
-        artifact.wait()
+    run.log_artifact(artifact)
+    artifact.wait()
 
     # Plot feature importance
     fig_feat_imp = plot_feature_importance(sk_pipe, processed_features)
