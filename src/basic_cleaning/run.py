@@ -40,6 +40,8 @@ def go(args):
 
 
     logger.info("Save to .csv")
+    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    df = df[idx].copy()
     df.to_csv("clean_sample.csv", index=False)
 
     artifact = wandb.Artifact(
